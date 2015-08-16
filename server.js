@@ -14,13 +14,13 @@ var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
 
-var configDB = require('./config/database.js');
+// var configDB = require('./config/database.js');
 var methodOverride = require('method-override'); // simulate DELETE and PUT (express4)
 
 app.use('/favicon.ico', express.static('images/favicon.ico'));
-
+var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/mydb';
 // configuration ===============================================================
-mongoose.connect(configDB.url); // connect to our database
+mongoose.connect(mongoUri); // connect to our database
 
 require('./config/passport')(passport); // pass passport for configuration
 
